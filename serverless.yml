@@ -1,0 +1,30 @@
+service: bedrock-lambda
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+
+package:
+  individually: true
+  patterns:
+    - "!node_modules/**"
+    - "!package-lock.json"
+    - "!package.json"
+    - "!README.md"
+
+plugins:
+  - serverless-iam-roles-per-function
+
+functions:
+  bedrock-streaming-response:
+    handler: index.handler
+    url:
+      invokeMode: RESPONSE_STREAM
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "bedrock:*"
+        Resource: "*"
+    timeout: 120
