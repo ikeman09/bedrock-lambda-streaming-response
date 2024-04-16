@@ -10,7 +10,7 @@ export const handler = awslambda.streamifyResponse(
 		});
 
 		const prompt = "Create me an article about amazon bedrock";
-		const claudPrompt = `Human:${prompt} Assistant:`;
+		const claudPrompt = `\n\nHuman:${prompt}\n\nAssistant:`;
 
 		const body = {
 			prompt: claudPrompt,
@@ -19,7 +19,6 @@ export const handler = awslambda.streamifyResponse(
 			top_k: 250,
 			top_p: 0.5,
 			stop_sequences: [],
-			anthropic_version: "bedrock-2023-05-31",
 		};
 
 		const params = {
